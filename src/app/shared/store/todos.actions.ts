@@ -7,6 +7,11 @@ export const fetchTodosSuccessAction = createAction(
   props<{ todos: Todo[] }>()
 );
 
+export const tryAddTodoAction = createAction(
+  '[ todos ] try add todo',
+  props<{ todo: Todo }>()
+);
+
 export const errorTodoAction = createAction(
   '[ todos ] error todos',
   props<{ error: any }>()
@@ -16,11 +21,23 @@ export const addTodoAction = createAction(
   '[ todos ] add todo',
   props<{ todo: Todo }>()
 );
+
+export const tryDeleteTodoAction = createAction(
+  '[ todos ] try delete todo',
+  props<{ todo: Todo }>()
+);
+
 export const deleteTodoAction = createAction(
   '[ todos ] delete todo',
-  props<{ index: number }>()
+  props<{ todo: Todo }>()
 );
-export const toggleTodoAction = createAction(
-  '[ todos ] toggle todo',
-  props<{ index: number }>()
+
+export const tryUpdateTodoAction = createAction(
+  '[ todos ] try update todo',
+  props<{ todo: Todo }>()
+);
+
+export const updateTodoAction = createAction(
+  '[ todos ] update todo',
+  props<{ todo: Todo }>()
 );

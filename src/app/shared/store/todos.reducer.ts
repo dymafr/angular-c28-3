@@ -53,13 +53,11 @@ export const todosReducer = createReducer(
     }
   ),
   on(
-    TodosActions.toggleTodoAction,
-    (state: TodosState, { index }: { index: number }): TodosState => {
+    TodosActions.updateTodoAction,
+    (state: TodosState, { todo }: { todo: Todo }): TodosState => {
       return {
         ...state,
-        data: state.data.map((v, i) =>
-          i !== index ? v : { ...v, done: !v.done }
-        ),
+        data: state.data.map((v) => (v._id !== todo._id ? v : todo)),
       };
     }
   )
