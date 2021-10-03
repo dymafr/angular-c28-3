@@ -9,7 +9,7 @@
         </button>
       </div>
       <ul>
-        <li *ngFor="let todo of todos$ | async; let i = index">
+        <li *ngFor="let todo of todos$ | async">
           <span>{{ todo.message }} ({{ todo.done }})</span>
           <button mat-raised-button color="primary" (click)="updateTodo(todo)">
             toggle
