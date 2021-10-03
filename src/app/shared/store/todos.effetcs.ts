@@ -8,6 +8,12 @@ import {
   fetchTodosAction,
   fetchTodosSuccessAction,
   errorTodoAction,
+  tryAddTodoAction,
+  addTodoAction,
+  tryDeleteTodoAction,
+  deleteTodoAction,
+  tryUpdateTodoAction,
+  updateTodoAction,
 } from './todos.actions';
 
 @Injectable()
@@ -18,6 +24,42 @@ export class TodoEffects {
       switchMap(() =>
         this.todosService.fetchTodos().pipe(
           map((todos: Todo[]) => fetchTodosSuccessAction({ todos })),
+          catchError((error) => of(errorTodoAction({ error })))
+        )
+      )
+    )
+  );
+
+  addTodoEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tryAddTodoAction),
+      switchMap(({ todo }: { todo: Todo }) =>
+        this.todosService.addTodo(todo).pipe(
+          map((todo: Todo) => addTodoAction({ todo })),
+          catchError((error) => of(errorTodoAction({ error })))
+        )
+      )
+    )
+  );
+
+  deleteTodoEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tryDeleteTodoAction),
+      switchMap(({ todo }: { todo: Todo }) =>
+        this.todosService.deleteTodo(todo).pipe(
+          map(() => deleteTodoAction({ todo })),
+          catchError((error) => of(errorTodoAction({ error })))
+        )
+      )
+    )
+  );
+
+  updateTodoEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tryUpdateTodoAction),
+      switchMap(({ todo }: { todo: Todo }) =>
+        this.todosService.updateTodo(todo).pipe(
+          map((todo: Todo) => updateTodoAction({ todo })),
           catchError((error) => of(errorTodoAction({ error })))
         )
       )
