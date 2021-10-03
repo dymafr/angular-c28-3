@@ -45,10 +45,10 @@ export const todosReducer = createReducer(
   ),
   on(
     TodosActions.deleteTodoAction,
-    (state: TodosState, { index }: { index: number }): TodosState => {
+    (state: TodosState, { todo }: { todo: Todo }): TodosState => {
       return {
         ...state,
-        data: state.data.filter((v, i) => i !== index),
+        data: state.data.filter((v) => v._id !== todo._id),
       };
     }
   ),
